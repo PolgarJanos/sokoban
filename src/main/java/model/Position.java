@@ -4,7 +4,10 @@ public interface Position {
 
 
     int getXCoordinate();
-    int getYCoordinate();
+
     void setXCoordinate(int x);
+
+    int getYCoordinate();
+
     void setYCoordinate(int y);
 }
