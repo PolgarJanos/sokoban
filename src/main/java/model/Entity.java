@@ -6,15 +6,23 @@ package model;
 public interface Entity {
 
     /**
-     * @return true if the object is Player
+     * @return true if the object is Player.
      */
     boolean isPlayer();
-
+    /**
+     * @return true if the object is goal
+     */
     boolean isGoal();
-
+    /**
+     * @return true if the object is ball.
+     */
     boolean isBall();
-
+    /**
+     * @return true if the object is Obstacle.
+     */
     boolean isObstacle();
-
+    /**
+     * @return true if the object can be moved.
+     */
     boolean isMoveAble();
 }
