@@ -1,7 +1,7 @@
 package model;
 
 public interface Direction {
-    int getRowChange();
-    int getColChange();
+    int getXChange();
+    int getYChange();
 
 }

@@ -24,9 +24,17 @@ public interface Table {
     boolean isMoveAbleOnPosition(Position position) throws  IllegalArgumentException;
 
     /**
+     * Returns true if on the given posit no  {@code Entity} is present.
+     * @param position The position of the  {@code Entity}
+     * @return true if on the given posit no  {@code Entity} is present.
+     * @throws IllegalArgumentException if position is out of boundary
+     */
+    boolean isEmptyOnPosition(Position position) throws  IllegalArgumentException;
+
+    /**
      *Returns whit the {@code Entity} in the given position.
      * @param position The position of the  {@code Entity}
-     * @return whit the entity on the given position or {@code null} if there is no entity.
+     * @return whit the entity on the given position
      * @throws IllegalArgumentException if position is out of boundary
      */
     Entity getEntityFromPosition(Position position) throws  IllegalArgumentException;
