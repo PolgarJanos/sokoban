@@ -10,7 +10,8 @@ public interface Mover {
      * @param position  which position will be moved
      * @param direction in what direction will be moved
      * @param table     where the movement is occurred
-     * @throws cantBeMovedException if the {@code Entity} can be moved.
+     * @throws cantBeMovedException if the {@code Entity} can't be moved.
+     * @throws IllegalArgumentException if position is out of boundary
      */
-    void move(Position position, Direction direction, Table table) throws cantBeMovedException;
+    void move(Position position, Direction direction, Table table) throws cantBeMovedException,IllegalArgumentException;
 }
