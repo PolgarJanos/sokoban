@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 public interface Table {
 
     boolean isObstacleOnPosition(Position position);
@@ -8,5 +10,8 @@ public interface Table {
     void putOnPosition(Entity entity, Position position);
     void removeFromPosition(Position position);
     Position getPlayerPosition();
+    Set<Position> getBallPositions();
+    Set<Position> getGoalPositions();
+
 
 }
