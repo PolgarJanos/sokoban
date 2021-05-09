@@ -1,18 +1,21 @@
-package model.EntityImpl;
+package model.entityImpl;
+
 
 import model.Entity;
+
 /**
- * Implementation of {@code Entity} which class represents a goal {@code Entity}.
+ * Implementation of {@code Entity} which represents a player {@code Entity}.
  */
-public class Goal implements Entity {
+public class Player implements Entity {
     @Override
     public boolean isPlayer() {
-        return false;
+        return true;
+
     }
 
     @Override
     public boolean isGoal() {
-        return true;
+        return false;
     }
 
     @Override
@@ -22,11 +25,11 @@ public class Goal implements Entity {
 
     @Override
     public boolean isObstacle() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isMoveAble() {
-        return false;
+        return true;
     }
 }
