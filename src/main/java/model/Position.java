@@ -27,4 +27,5 @@ public interface Position {
      * @param y int representation of the second coordinate
      */
     void setYCoordinate(int y);
+
 }
