@@ -13,7 +13,7 @@ public class WallTest {
 
     @BeforeEach
     void init() {
-        entity = new Wall();
+        entity = EntityImpl.Wall;
     }
 
     @Test

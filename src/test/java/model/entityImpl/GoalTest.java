@@ -13,7 +13,7 @@ public class GoalTest {
 
     @BeforeEach
     void init() {
-        entity = new Goal();
+        entity = EntityImpl.Goal;
     }
 
     @Test

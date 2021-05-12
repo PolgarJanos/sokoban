@@ -13,7 +13,7 @@ public class PlayerTest {
 
     @BeforeEach
     void init() {
-        entity = new Player();
+        entity = EntityImpl.Player;
     }
 
     @Test

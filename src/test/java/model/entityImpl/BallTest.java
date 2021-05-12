@@ -13,7 +13,7 @@ public class BallTest {
 
     @BeforeEach
     void init() {
-        entity = new Ball();
+        entity = EntityImpl.Ball;
     }
 
     @Test
