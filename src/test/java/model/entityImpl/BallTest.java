@@ -1,6 +1,7 @@
 package model.entityImpl;
 
 import model.Entity;
+import model.entityImpl.asEnum.EntityImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ public class BallTest {
 
     @BeforeEach
     void init() {
-        entity = EntityImpl.Ball;
+        entity = EntityImpl.BALL;
     }
 
     @Test

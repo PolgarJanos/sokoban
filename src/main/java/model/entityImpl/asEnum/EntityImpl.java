@@ -1,13 +1,32 @@
-package model.entityImpl;
+package model.entityImpl.asEnum;
 
 import model.Entity;
 
+/**
+ * Enum implementation of the {@code Entity} interface.
+ */
 public enum EntityImpl implements Entity {
-
-    Ball(false, false, true, true, true),
-    Goal(false, true, false, false, false),
-    Player(true, false, false, true, true),
-    Wall(false, false, false, true, false);
+    /**
+     * Represent a Ball on the board{@code Entity}.
+     */
+    BALL(false, false, true, true, true),
+    /**
+     * Represent a Goal on the board{@code Entity}.
+     */
+    GOAL(false, true, false, false, false),
+    /**
+     * Represent a Player on the board{@code Entity}.
+     */
+    PLAYER(true, false, false, true, true),
+    /**
+     * Represent a Wall on the board{@code Entity}.
+     */
+    WALL(false, false, false, true, false),
+    /**
+     * Represent Noting on the board {@code Entity}.
+     */
+    NONE(false,false,false,false,false)
+    ;
 
     private boolean isPlayer;
     private boolean isGoal;

@@ -1,10 +1,11 @@
-package model.entityImpl;
+package model.entityImpl.asClass;
 
 import model.Entity;
+
 /**
- * Implementation of {@code Entity} which represents a wall {@code Entity}.
+ * Implementation of {@code Entity} which represents a ball {@code Entity}.
  */
-public class Wall implements Entity {
+public class Ball implements Entity {
     @Override
     public boolean isPlayer() {
         return false;
@@ -17,7 +18,7 @@ public class Wall implements Entity {
 
     @Override
     public boolean isBall() {
-        return false;
+        return true;
     }
 
     @Override
@@ -27,6 +28,6 @@ public class Wall implements Entity {
 
     @Override
     public boolean isMoveAble() {
-        return false;
+        return true;
     }
 }

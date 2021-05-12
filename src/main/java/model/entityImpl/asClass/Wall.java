@@ -1,10 +1,10 @@
-package model.entityImpl;
+package model.entityImpl.asClass;
 
 import model.Entity;
 /**
- * Implementation of {@code Entity} which represents a goal {@code Entity}.
+ * Implementation of {@code Entity} which represents a wall {@code Entity}.
  */
-public class Goal implements Entity {
+public class Wall implements Entity {
     @Override
     public boolean isPlayer() {
         return false;
@@ -12,7 +12,7 @@ public class Goal implements Entity {
 
     @Override
     public boolean isGoal() {
-        return true;
+        return false;
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Goal implements Entity {
 
     @Override
     public boolean isObstacle() {
-        return false;
+        return true;
     }
 
     @Override
