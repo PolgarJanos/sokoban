@@ -41,4 +41,9 @@ public class GoalTest {
     void isMoveAble() {
         assertFalse(entity.isMoveAble());
     }
+
+    @Test
+    void isNothing() {
+        assertFalse(entity.isNothing());
+    }
 }

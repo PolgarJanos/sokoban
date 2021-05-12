@@ -41,5 +41,9 @@ public class WallTest {
     void isMoveAble() {
         assertFalse(entity.isMoveAble());
     }
+    @Test
+    void isNothing() {
+        assertFalse(entity.isNothing());
+    }
 }
 

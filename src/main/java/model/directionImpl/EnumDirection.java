@@ -4,6 +4,7 @@ import model.Direction;
 
 /**
  * Represents the four main directions.
+ * Implements {@code Direction}
  */
 public enum EnumDirection implements Direction {
     /**

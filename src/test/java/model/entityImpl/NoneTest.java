@@ -5,16 +5,15 @@ import model.entityImpl.asEnum.EntityImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class BallTest {
+public class NoneTest {
 
     public static Entity entity;
 
     @BeforeEach
     void init() {
-        entity = EntityImpl.BALL;
+        entity = EntityImpl.NONE;
     }
 
     @Test
@@ -29,21 +28,27 @@ public class BallTest {
 
     @Test
     void isBall() {
-        assertTrue(entity.isBall());
+        assertFalse(entity.isBall());
     }
 
     @Test
     void isObstacle() {
-        assertTrue(entity.isObstacle());
+        assertFalse(entity.isObstacle());
     }
 
     @Test
     void isMoveAble() {
-        assertTrue(entity.isMoveAble());
+        assertFalse(entity.isMoveAble());
     }
 
     @Test
     void isNothing() {
-        assertFalse(entity.isNothing());
+        assertTrue(entity.isNothing());
+    }
+
+    @Test
+    void giveBackNone(){
+        assertEquals(entity,entity.giveBackNone());
     }
 }
+

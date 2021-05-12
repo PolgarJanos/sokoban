@@ -25,4 +25,16 @@ public interface Entity {
      * @return true if the object can be moved.
      */
     boolean isMoveAble();
+
+    /**
+     * Return true if the object represent the nothing.
+     * @return true if every other property is false.
+     */
+    boolean isNothing();
+
+    /**
+     *
+     * @return an {@code Entity } which representing the nothing.
+     */
+    Entity giveBackNone();
 }

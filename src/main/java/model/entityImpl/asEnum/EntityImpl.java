@@ -66,4 +66,14 @@ public enum EntityImpl implements Entity {
     public boolean isMoveAble() {
         return isMoveAble;
     }
+
+    @Override
+    public boolean isNothing() {
+        return !(isPlayer()||isGoal()||isBall()||isMoveAble()||isObstacle());
+    }
+
+    @Override
+    public Entity giveBackNone() {
+        return EntityImpl.NONE;
+    }
 }

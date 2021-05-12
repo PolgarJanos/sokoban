@@ -41,5 +41,10 @@ public class PlayerTest {
     void isMoveAble() {
         assertTrue(entity.isMoveAble());
     }
+
+    @Test
+    void isNothing() {
+        assertFalse(entity.isNothing());
+    }
 }
 
