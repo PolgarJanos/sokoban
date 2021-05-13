@@ -169,4 +169,16 @@ public class TableImpl implements Table {
         result = 31 * result;
         return result;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                sb.append(table[j][i].getValue().toString()).append(' ');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
 }
