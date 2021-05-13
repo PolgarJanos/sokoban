@@ -7,7 +7,9 @@ import model.Table;
 import model.entityImpl.asEnum.EntityImpl;
 import model.positionImpl.IntPosition;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -133,5 +135,20 @@ public class TableImpl implements Table {
                 (position.getYCoordinate() < (BOARD_SIZE))) &&
                 ((position.getXCoordinate() >= 0) &&
                         (position.getYCoordinate() >= 0)));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TableImpl table1 = (TableImpl) o;
+        return BOARD_SIZE == table1.BOARD_SIZE && Arrays.equals(table, table1.table);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(BOARD_SIZE);
+        result = 31 * result + Arrays.hashCode(table);
+        return result;
     }
 }
