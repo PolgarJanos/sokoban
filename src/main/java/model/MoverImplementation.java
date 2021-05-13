@@ -1,5 +1,7 @@
 package model;
 
+import model.positionImpl.IntPosition;
+
 import java.util.Stack;
 
 public class MoverImplementation implements Mover {
@@ -9,6 +11,14 @@ public class MoverImplementation implements Mover {
         Stack<Position> moveAbleEntitiesPositions = collectMoveAbleEntitiesInTheWay(position, direction, table);
 
         if (table.isEmptyOnPosition(position)) {
+
+            Position movesFromPosition = moveAbleEntitiesPositions.peek();
+            Position movesToPosition = new IntPosition(movesFromPosition.getXCoordinate() + direction.getXChange(),
+                    movesFromPosition.getYCoordinate() + direction.getYChange());
+            Entity movingEntity = table.getEntityFromPosition(movesFromPosition);
+            table.removeFromPosition(movesFromPosition);
+            table.putOnPosition(movingEntity, movesToPosition);
+
             mover(table, moveAbleEntitiesPositions);
         } else {
             throw new cantBeMovedException(table.getEntityFromPosition(position).toString());
@@ -22,15 +32,19 @@ public class MoverImplementation implements Mover {
             position.setXCoordinate(position.getXCoordinate() + direction.getXChange());
             position.setYCoordinate(position.getYCoordinate() + direction.getYChange());
         }
+
         return moveAbleEntitiesPositions;
     }
 
     private void mover(Table table, Stack<Position> moveAbleEntitiesPositions) {
-        while (!moveAbleEntitiesPositions.empty()) {
-            Position currentPosition = moveAbleEntitiesPositions.pop();
-            Entity currentEntity = table.getEntityFromPosition(currentPosition);
-            table.removeFromPosition(currentPosition);
-            table.putOnPosition(currentEntity, currentPosition);
+
+        while (moveAbleEntitiesPositions.size() != 1) {
+            Position movesToPosition = moveAbleEntitiesPositions.pop();
+            Position movesFromPosition = moveAbleEntitiesPositions.peek();
+
+            Entity movingEntity = table.getEntityFromPosition(movesFromPosition);
+            table.removeFromPosition(movesFromPosition);
+            table.putOnPosition(movingEntity, movesToPosition);
         }
     }
 }
