@@ -1,10 +1,12 @@
 package model.tableImpl;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import model.Entity;
 import model.Position;
 import model.Table;
 import model.entityImpl.asEnum.EntityImpl;
 import model.positionImpl.IntPosition;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
@@ -14,14 +16,29 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TableImplTest {
 
+    Table table;
+    Table table1;
+    ReadOnlyObjectWrapper[][] table2d;
+    ReadOnlyObjectWrapper[][] table2d1;
+
+    @BeforeEach
+    void init() {
+        int boardSize = 5;
+        table2d = new ReadOnlyObjectWrapper[boardSize][boardSize];
+        table2d1 = new ReadOnlyObjectWrapper[boardSize][boardSize];
+        Entity entity = EntityImpl.NONE;
+        table = new TableImpl(boardSize, table2d, entity);
+        table1 = new TableImpl(boardSize, table2d1, entity);
+    }
+
 
     @Test
     void isObstacleOnPosition() {//Given
-        Table table = new TableImpl();
+
         Entity goal = EntityImpl.GOAL;
         Position positionGoal = new IntPosition(2, 2);
         Entity player = EntityImpl.PLAYER;
-        Position positionPlayer = new IntPosition(3,2);
+        Position positionPlayer = new IntPosition(3, 2);
         table.putOnPosition(player, positionPlayer);
         table.putOnPosition(goal, positionGoal);
         //When
@@ -34,11 +51,10 @@ class TableImplTest {
     @Test
     void isMoveAbleOnPosition() {
         //Given
-        Table table = new TableImpl();
         Entity wall = EntityImpl.WALL;
         Position positionWall = new IntPosition(2, 2);
         Entity player = EntityImpl.PLAYER;
-        Position positionPlayer = new IntPosition(3,2);
+        Position positionPlayer = new IntPosition(3, 2);
         table.putOnPosition(player, positionPlayer);
         table.putOnPosition(wall, positionWall);
         //When
@@ -51,21 +67,21 @@ class TableImplTest {
     @Test
     void isEmptyOnPosition() {
         //Given
-        Table table = new TableImpl();
+
         Entity wall = EntityImpl.WALL;
         Position position = new IntPosition(2, 2);
         table.putOnPosition(wall, position);
         //When
 
         //Then
-        assertTrue(table.isEmptyOnPosition(new IntPosition(0,0)));
+        assertTrue(table.isEmptyOnPosition(new IntPosition(0, 0)));
         assertFalse(table.isEmptyOnPosition(position));
     }
 
     @Test
     void getEntityFromPosition() {
         //Given
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(2, 2);
         table.putOnPosition(player, position);
@@ -78,7 +94,7 @@ class TableImplTest {
     @Test
     void testWhenPositionIsOutOfBoundaryShouldThrowIllegalArgumentException() {
 
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
@@ -95,7 +111,7 @@ class TableImplTest {
     @Test
     void testWhenPositionIsNegativeShouldThrowIllegalArgumentException() {
 
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(-1, -1);
 
@@ -112,7 +128,7 @@ class TableImplTest {
     @Test
     void testWhenPositionSecondCoordinateOutOfBoundaryShouldThrowIllegalArgumentException() {
 
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(0, -1);
 
@@ -129,7 +145,7 @@ class TableImplTest {
     @Test
     void testWhenPositionFirstCoordinateOutOfBoundaryShouldThrowIllegalArgumentException() {
 
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(Integer.MAX_VALUE, 0);
 
@@ -146,7 +162,7 @@ class TableImplTest {
     @Test
     void putOnPosition() {
         //Given
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(2, 2);
         //When
@@ -159,7 +175,7 @@ class TableImplTest {
     @Test
     void removeFromPosition() {
         //Given
-        Table table = new TableImpl();
+
         Entity ball = EntityImpl.BALL;
         Position position = new IntPosition(2, 2);
         table.putOnPosition(ball, position);
@@ -173,7 +189,7 @@ class TableImplTest {
     @Test
     void getPlayerPosition() {
         //Given
-        Table table = new TableImpl();
+
         Entity player = EntityImpl.PLAYER;
         Position position = new IntPosition(2, 2);
         table.putOnPosition(player, position);
@@ -187,17 +203,17 @@ class TableImplTest {
     @Test
     void getBallPositions() {
         //Given
-        Table table = new TableImpl();
+
         Entity wall = EntityImpl.WALL;
         Position positionWall = new IntPosition(2, 2);
         Entity player = EntityImpl.PLAYER;
-        Position positionPlayer = new IntPosition(3,2);
-        Position positionBall1 = new IntPosition(0,0);
-        Position positionBall2 = new IntPosition(4,3);
-        Position positionBall3 = new IntPosition(2,3);
+        Position positionPlayer = new IntPosition(3, 2);
+        Position positionBall1 = new IntPosition(0, 0);
+        Position positionBall2 = new IntPosition(4, 3);
+        Position positionBall3 = new IntPosition(2, 3);
         table.putOnPosition(player, positionPlayer);
         table.putOnPosition(wall, positionWall);
-        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
         table.putOnPosition(EntityImpl.BALL, positionBall1);
         table.putOnPosition(EntityImpl.BALL, positionBall2);
         table.putOnPosition(EntityImpl.BALL, positionBall3);
@@ -209,23 +225,23 @@ class TableImplTest {
         //When
         Set<Position> actual = table.getBallPositions();
         //Then
-        assertEquals(excepted,actual);
+        assertEquals(excepted, actual);
     }
 
     @Test
     void getGoalPositions() {
         //Given
-        Table table = new TableImpl();
+
         Entity wall = EntityImpl.WALL;
         Position positionWall = new IntPosition(2, 2);
         Entity player = EntityImpl.PLAYER;
-        Position positionPlayer = new IntPosition(3,2);
-        Position positionGoal1 = new IntPosition(0,0);
-        Position positionGoal2 = new IntPosition(4,3);
-        Position positionGoal3 = new IntPosition(2,3);
+        Position positionPlayer = new IntPosition(3, 2);
+        Position positionGoal1 = new IntPosition(0, 0);
+        Position positionGoal2 = new IntPosition(4, 3);
+        Position positionGoal3 = new IntPosition(2, 3);
         table.putOnPosition(player, positionPlayer);
         table.putOnPosition(wall, positionWall);
-        table.putOnPosition(EntityImpl.BALL, new IntPosition(4,4));
+        table.putOnPosition(EntityImpl.BALL, new IntPosition(4, 4));
         table.putOnPosition(EntityImpl.GOAL, positionGoal1);
         table.putOnPosition(EntityImpl.GOAL, positionGoal2);
         table.putOnPosition(EntityImpl.GOAL, positionGoal3);
@@ -237,32 +253,31 @@ class TableImplTest {
         //When
         Set<Position> actual = table.getGoalPositions();
         //Then
-        assertEquals(excepted,actual);
+        assertEquals(excepted, actual);
     }
 
     @Test
-    void testEqualsWhenTheTwoTableIsEquals(){
+    void testEqualsWhenTheTwoTableIsEquals() {
         //Given
-        Table table1 = new TableImpl();
+
         Entity wall = EntityImpl.WALL;
         Position positionWall = new IntPosition(2, 2);
         Entity player = EntityImpl.PLAYER;
-        Position positionPlayer = new IntPosition(3,2);
-        Position positionBall1 = new IntPosition(0,0);
-        Position positionBall2 = new IntPosition(4,3);
-        Position positionBall3 = new IntPosition(2,3);
+        Position positionPlayer = new IntPosition(3, 2);
+        Position positionBall1 = new IntPosition(0, 0);
+        Position positionBall2 = new IntPosition(4, 3);
+        Position positionBall3 = new IntPosition(2, 3);
         table1.putOnPosition(player, positionPlayer);
         table1.putOnPosition(wall, positionWall);
-        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
         table1.putOnPosition(EntityImpl.BALL, positionBall1);
         table1.putOnPosition(EntityImpl.BALL, positionBall2);
         table1.putOnPosition(EntityImpl.BALL, positionBall3);
 
-        Table table = new TableImpl();
 
         table.putOnPosition(player, positionPlayer);
         table.putOnPosition(wall, positionWall);
-        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
         table.putOnPosition(EntityImpl.BALL, positionBall1);
         table.putOnPosition(EntityImpl.BALL, positionBall2);
         table.putOnPosition(EntityImpl.BALL, positionBall3);
@@ -271,32 +286,31 @@ class TableImplTest {
 
         //Then
         assertTrue(table.equals(table1));
-        assertEquals(table,table1);
+        assertEquals(table, table1);
 
     }
+
     @Test
-    void testEqualsWhenTheTwoTableIsNotEquals(){
+    void testEqualsWhenTheTwoTableIsNotEquals() {
         //Given
-        Table table1 = new TableImpl();
         Entity wall = EntityImpl.WALL;
         Position positionWall = new IntPosition(2, 2);
         Entity player = EntityImpl.PLAYER;
-        Position positionPlayer = new IntPosition(3,2);
-        Position positionBall1 = new IntPosition(0,0);
-        Position positionBall2 = new IntPosition(1,3);
-        Position positionBall3 = new IntPosition(2,3);
+        Position positionPlayer = new IntPosition(3, 2);
+        Position positionBall1 = new IntPosition(0, 0);
+        Position positionBall2 = new IntPosition(1, 3);
+        Position positionBall3 = new IntPosition(2, 3);
         table1.putOnPosition(player, positionPlayer);
         table1.putOnPosition(wall, positionWall);
-        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(3,4));
+        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(3, 4));
         table1.putOnPosition(EntityImpl.BALL, positionBall1);
         table1.putOnPosition(EntityImpl.BALL, positionBall2);
         table1.putOnPosition(EntityImpl.BALL, positionBall3);
 
-        Table table = new TableImpl();
 
         table.putOnPosition(player, positionPlayer);
         table.putOnPosition(wall, positionWall);
-        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
         table.putOnPosition(EntityImpl.BALL, positionBall1);
         table.putOnPosition(EntityImpl.BALL, positionBall2);
         table.putOnPosition(EntityImpl.BALL, positionBall3);
@@ -305,7 +319,78 @@ class TableImplTest {
 
         //Then
         assertFalse(table.equals(table1));
-        assertNotEquals(table,table1);
+        assertNotEquals(table, table1);
 
+    }
+
+    @Test
+    void putOnPositionWhitPushDown() {
+        //Given
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
+        //When
+        table.putOnPosition(EntityImpl.BALL, new IntPosition(4, 4));
+        //Then
+        assertEquals(table.getEntityFromPosition(new IntPosition(4, 4)), EntityImpl.BALL);
+
+
+    }
+
+    @Test
+    void removingFromPushDownPosition() {
+        //Given
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
+        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(4, 4));
+        table.putOnPosition(EntityImpl.BALL, new IntPosition(4, 4));
+        //When
+        table.removeFromPosition(new IntPosition(4, 4));
+        //Then
+        assertEquals(table, table1);
+
+    }
+
+    @Test
+    void testGetGoalPositionsWhitPushDown() {
+        //Given
+
+        Entity wall = EntityImpl.WALL;
+        Position positionWall = new IntPosition(2, 2);
+        Entity player = EntityImpl.PLAYER;
+        Position positionPlayer = new IntPosition(3, 2);
+        Position positionGoal1 = new IntPosition(0, 0);
+        Position positionGoal2 = new IntPosition(4, 3);
+        Position positionGoal3 = new IntPosition(2, 3);
+        table.putOnPosition(player, positionPlayer);
+        table.putOnPosition(wall, positionWall);
+        table.putOnPosition(EntityImpl.BALL, new IntPosition(4, 3));
+        table.putOnPosition(EntityImpl.GOAL, positionGoal1);
+        table.putOnPosition(EntityImpl.GOAL, positionGoal2);
+        table.putOnPosition(EntityImpl.GOAL, positionGoal3);
+
+        Set<Position> excepted = new HashSet<>();
+        excepted.add(positionGoal1);
+        excepted.add(positionGoal2);
+        excepted.add(positionGoal3);
+        //When
+        Set<Position> actual = table.getGoalPositions();
+        //Then
+        assertEquals(excepted, actual);
+
+    }
+    @Test
+    void testCreat2DRepresentationISWorkingRight(){
+
+        Position position = new IntPosition(2, 3);
+        table.putOnPosition(EntityImpl.GOAL,position);
+
+        assertEquals(EntityImpl.GOAL, table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
+
+        table.putOnPosition(EntityImpl.BALL,position);
+        assertEquals(EntityImpl.BALL, table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
+
+        table.removeFromPosition(position);
+        assertEquals(EntityImpl.GOAL,table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
+
+        table.removeFromPosition(position);
+        assertEquals(EntityImpl.NONE,table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
     }
 }

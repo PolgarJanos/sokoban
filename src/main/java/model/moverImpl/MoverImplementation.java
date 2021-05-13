@@ -21,7 +21,9 @@ public class MoverImplementation implements Mover {
             table.removeFromPosition(position);
             table.putOnPosition(toBeMovedEntity, whereToMovedPosition);
         } else if (!table.isObstacleOnPosition(whereToMovedPosition)) {
+
             Entity toBeMovedEntity = table.getEntityFromPosition(position);
+            table.removeFromPosition(position);
             table.putOnPosition(toBeMovedEntity, whereToMovedPosition);
         } else {
 

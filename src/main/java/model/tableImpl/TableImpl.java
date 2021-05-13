@@ -4,10 +4,8 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import model.Entity;
 import model.Position;
 import model.Table;
-import model.entityImpl.asEnum.EntityImpl;
 import model.positionImpl.IntPosition;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,18 +15,26 @@ import java.util.Set;
  */
 public class TableImpl implements Table {
 
-    private final int BOARD_SIZE = 5;
-    private final ReadOnlyObjectWrapper<Entity>[][] table = new ReadOnlyObjectWrapper[BOARD_SIZE][BOARD_SIZE];
 
+    private final ReadOnlyObjectWrapper<Entity>[][][] table;
+
+    private int bordSize;
+    private ReadOnlyObjectWrapper<Entity>[][] table2DRepresentation;
+    private Entity entity;
 
     /**
      * Representing the game bord.
      */
-    public TableImpl() {
-
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                table[i][j] = new ReadOnlyObjectWrapper<Entity>(EntityImpl.NONE);
+    public TableImpl(int bordSize, ReadOnlyObjectWrapper<Entity>[][] table2DRepresentation, Entity entity) {
+        this.bordSize = bordSize;
+        this.table2DRepresentation = table2DRepresentation;
+        this.entity = entity;
+        table = new ReadOnlyObjectWrapper[bordSize][bordSize][2];
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                table[i][j][0] = new ReadOnlyObjectWrapper<Entity>(entity.giveBackNone());
+                table[i][j][1] = new ReadOnlyObjectWrapper<Entity>(entity.giveBackNone());
+                table2DRepresentation[i][j] = new ReadOnlyObjectWrapper<Entity>(entity.giveBackNone());
             }
         }
     }
@@ -36,7 +42,7 @@ public class TableImpl implements Table {
     @Override
     public boolean isObstacleOnPosition(Position position) throws IllegalArgumentException {
         if (validatePosition(position)) {
-            return table[position.getXCoordinate()][position.getYCoordinate()].getValue().isObstacle();
+            return table[position.getXCoordinate()][position.getYCoordinate()][0].getValue().isObstacle();
         } else {
             throw new IllegalArgumentException("Coordinate out of boundary.Coordinate: " + position.getXCoordinate() + " " + position.getYCoordinate());
         }
@@ -45,7 +51,7 @@ public class TableImpl implements Table {
     @Override
     public boolean isMoveAbleOnPosition(Position position) throws IllegalArgumentException {
         if (validatePosition(position)) {
-            return table[position.getXCoordinate()][position.getYCoordinate()].getValue().isMoveAble();
+            return table[position.getXCoordinate()][position.getYCoordinate()][0].getValue().isMoveAble();
         } else {
             throw new IllegalArgumentException("Coordinate out of boundary.Coordinate: " + position.getXCoordinate() + " " + position.getYCoordinate());
         }
@@ -54,7 +60,7 @@ public class TableImpl implements Table {
     @Override
     public boolean isEmptyOnPosition(Position position) throws IllegalArgumentException {
         if (validatePosition(position)) {
-            return table[position.getXCoordinate()][position.getYCoordinate()].getValue().isNothing();
+            return table[position.getXCoordinate()][position.getYCoordinate()][0].getValue().isNothing();
         } else {
             throw new IllegalArgumentException("Coordinate out of boundary.Coordinate: " + position.getXCoordinate() + " " + position.getYCoordinate());
         }
@@ -63,7 +69,7 @@ public class TableImpl implements Table {
     @Override
     public Entity getEntityFromPosition(Position position) throws IllegalArgumentException {
         if (validatePosition(position)) {
-            return table[position.getXCoordinate()][position.getYCoordinate()].getValue();
+            return table[position.getXCoordinate()][position.getYCoordinate()][0].getValue();
         } else {
             throw new IllegalArgumentException("Coordinate out of boundary.Coordinate: " + position.getXCoordinate() + " " + position.getYCoordinate());
         }
@@ -72,28 +78,39 @@ public class TableImpl implements Table {
     @Override
     public void putOnPosition(Entity entity, Position position) throws IllegalArgumentException {
         if (validatePosition(position)) {
-            table[position.getXCoordinate()][position.getYCoordinate()].set(entity);
+            if (getEntityFromPosition(position).isGoal()) {
+                pushDownWhitEntity(entity, position);
+            } else {
+                table[position.getXCoordinate()][position.getYCoordinate()][0].set(entity);
+            }
         } else {
             throw new IllegalArgumentException("Coordinate out of boundary.Coordinate: " + position.getXCoordinate() + " " + position.getYCoordinate());
         }
+        creat2DRepresentation();
+    }
+
+    private void pushDownWhitEntity(Entity entity, Position position) {
+        table[position.getXCoordinate()][position.getYCoordinate()][1].set(table[position.getXCoordinate()][position.getYCoordinate()][0].getValue());
+        table[position.getXCoordinate()][position.getYCoordinate()][0].set(entity);
     }
 
     @Override
     public void removeFromPosition(Position position) throws IllegalArgumentException {
         if (validatePosition(position)) {
-            table[position.getXCoordinate()][position.getYCoordinate()].set(EntityImpl.NONE);
+            table[position.getXCoordinate()][position.getYCoordinate()][0].set(table[position.getXCoordinate()][position.getYCoordinate()][1].getValue());
+            table[position.getXCoordinate()][position.getYCoordinate()][1].set(entity.giveBackNone());
         } else {
             throw new IllegalArgumentException("Coordinate out of boundary.Coordinate: " + position.getXCoordinate() + " " + position.getYCoordinate());
         }
-
+        creat2DRepresentation();
     }
 
     @Override
     public Position getPlayerPosition() {
 
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (table[i][j].getValue().isPlayer()) {
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                if (table[i][j][0].getValue().isPlayer()) {
                     return new IntPosition(i, j);
                 }
 
@@ -105,9 +122,9 @@ public class TableImpl implements Table {
     @Override
     public Set<Position> getBallPositions() {
         Set<Position> ballPositions = new HashSet<>();
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (table[i][j].getValue().isBall()) {
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                if (table[i][j][0].getValue().isBall()) {
                     ballPositions.add(new IntPosition(i, j));
                 }
 
@@ -119,9 +136,9 @@ public class TableImpl implements Table {
     @Override
     public Set<Position> getGoalPositions() {
         Set<Position> goalPositions = new HashSet<>();
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (table[i][j].getValue().isGoal()) {
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                if (table[i][j][0].getValue().isGoal() || table[i][j][1].getValue().isGoal()) {
                     goalPositions.add(new IntPosition(i, j));
                 }
 
@@ -131,8 +148,8 @@ public class TableImpl implements Table {
     }
 
     private boolean validatePosition(Position position) {
-        return (((position.getXCoordinate() < (BOARD_SIZE)) &&
-                (position.getYCoordinate() < (BOARD_SIZE))) &&
+        return (((position.getXCoordinate() < (bordSize)) &&
+                (position.getYCoordinate() < (bordSize))) &&
                 ((position.getXCoordinate() >= 0) &&
                         (position.getYCoordinate() >= 0)));
     }
@@ -142,28 +159,38 @@ public class TableImpl implements Table {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TableImpl table1 = (TableImpl) o;
-        if (this.BOARD_SIZE != table1.BOARD_SIZE) {
+        if (this.bordSize != table1.bordSize) {
             return false;
         }
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                if (!(this.table[i][j].getValue().equals(table1.table[i][j].getValue()))) {
-                    return false;
-                }
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++)
+                for (int k = 0; k < 2; k++) {
+                    if (!(this.table[i][j][k].getValue().equals(table1.table[i][j][k].getValue()))) {
+                        return false;
+                    }
 
-            }
+                }
         }
         return true;
     }
 
+    private void creat2DRepresentation() {
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                table2DRepresentation[i][j] = table[i][j][0];
+            }
+        }
+    }
+
     @Override
     public int hashCode() {
-        int result = Objects.hash(BOARD_SIZE);
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
+        int result = Objects.hash(bordSize);
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                for (int k = 0; k < 2; k++) {
+                    result = result + table[i][j][k].getValue().hashCode();
 
-                result=result+table[i][j].getValue().hashCode();
-
+                }
             }
         }
         result = 31 * result;
@@ -173,9 +200,9 @@ public class TableImpl implements Table {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-                sb.append(table[j][i].getValue().toString()).append(' ');
+        for (int i = 0; i < bordSize; i++) {
+            for (int j = 0; j < bordSize; j++) {
+                sb.append(table[j][i][0].getValue().toString()).append(' ');
             }
             sb.append('\n');
         }

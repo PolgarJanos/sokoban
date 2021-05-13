@@ -1,17 +1,33 @@
 package model.moverImpl;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import model.*;
 import model.directionImpl.EnumDirection;
 import model.entityImpl.asEnum.EntityImpl;
 import model.positionImpl.IntPosition;
 import model.tableImpl.TableImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tinylog.Logger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MoverImplementationTest {
+
+    Table excepted;
+    Table actual;
+    ReadOnlyObjectWrapper[][] table2d;
+    ReadOnlyObjectWrapper[][] table2d1;
+
+    @BeforeEach
+    void init() {
+        int boardSize = 5;
+        table2d = new ReadOnlyObjectWrapper[boardSize][boardSize];
+        table2d1 = new ReadOnlyObjectWrapper[boardSize][boardSize];
+        Entity entity = EntityImpl.NONE;
+        excepted = new TableImpl(boardSize, table2d, entity);
+        actual = new TableImpl(boardSize, table2d1, entity);
+    }
 
     @Test
     void testMoveOnePlayerUp() throws cantBeMovedException {
@@ -23,9 +39,9 @@ class MoverImplementationTest {
         Position positionBeforeMove = new IntPosition(xCoordinate, yCoordinate);
         Position positionAfterMove = new IntPosition(xCoordinate + upDirection.getXChange(), yCoordinate + upDirection.getYChange());
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
 
         Mover mover = new MoverImplementation();
@@ -51,9 +67,9 @@ class MoverImplementationTest {
         Position positionBeforeMove = new IntPosition(xCoordinate, yCoordinate);
         Position positionAfterMove = new IntPosition(xCoordinate + direction.getXChange(), yCoordinate + direction.getYChange());
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
 
         Mover mover = new MoverImplementation();
@@ -79,9 +95,9 @@ class MoverImplementationTest {
         Position positionBeforeMove = new IntPosition(xCoordinate, yCoordinate);
         Position positionAfterMove = new IntPosition(xCoordinate + direction.getXChange(), yCoordinate + direction.getYChange());
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
 
         Mover mover = new MoverImplementation();
@@ -107,9 +123,9 @@ class MoverImplementationTest {
         Position positionBeforeMove = new IntPosition(xCoordinate, yCoordinate);
         Position positionAfterMove = new IntPosition(xCoordinate + direction.getXChange(), yCoordinate + direction.getYChange());
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
 
         Mover mover = new MoverImplementation();
@@ -136,11 +152,11 @@ class MoverImplementationTest {
         Position positionBeforeMove = new IntPosition(ballXCoordinate, ballYCoordinate);
         Position wallPosition = new IntPosition(ballXCoordinate + direction.getXChange(), ballYCoordinate + direction.getYChange());
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionBeforeMove);
         excepted.putOnPosition(unMoveAbleEntity, wallPosition);
 
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(unMoveAbleEntity, wallPosition);
 
@@ -170,11 +186,11 @@ class MoverImplementationTest {
         Position positionBeforeMove = new IntPosition(ballXCoordinate, ballYCoordinate);
         Position wallPosition = new IntPosition(ballXCoordinate + direction.getXChange(), ballYCoordinate + direction.getYChange());
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionBeforeMove);
         excepted.putOnPosition(unMoveAbleEntity, wallPosition);
 
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(unMoveAbleEntity, wallPosition);
 
@@ -207,11 +223,11 @@ class MoverImplementationTest {
         Position moveAbleEntityWhichWillBePushPositionAfterMove = new IntPosition(positionAfterMove.getXCoordinate() + direction.getXChange(),
                 positionAfterMove.getYCoordinate() + direction.getYChange());
 
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(moveAbleEntity, moveAbleEntityWhichWillBePushPositionBeforeMove);
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
         excepted.putOnPosition(moveAbleEntity, moveAbleEntityWhichWillBePushPositionAfterMove);
 
@@ -249,12 +265,12 @@ class MoverImplementationTest {
         Position moveAbleEntityTwoWhichWillBePushPositionAfterMove = new IntPosition(positionAfterMove.getXCoordinate() + direction.getXChange() * 2,
                 positionAfterMove.getYCoordinate() + direction.getYChange() * 2);
 
-        Table actual = new TableImpl();
+
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(moveAbleEntity, moveAbleEntityWhichWillBePushPositionBeforeMove);
         actual.putOnPosition(moveAbleEntity, moveAbleEntityTwoWhichWillBePushPositionBeforeMove);
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
         excepted.putOnPosition(moveAbleEntity, moveAbleEntityWhichWillBePushPositionAfterMove);
         excepted.putOnPosition(moveAbleEntity, moveAbleEntityTwoWhichWillBePushPositionAfterMove);
@@ -289,12 +305,11 @@ class MoverImplementationTest {
                 ballYCoordinate + direction.getYChange() * 2);
 
 
-        Table actual = new TableImpl();
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(moveAbleEntity, moveAbleEntityPosition);
         actual.putOnPosition(unMoveAbleEntity, unMoveAbleEntityPosition);
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionBeforeMove);
         excepted.putOnPosition(moveAbleEntity, moveAbleEntityPosition);
         excepted.putOnPosition(unMoveAbleEntity, unMoveAbleEntityPosition);
@@ -333,12 +348,11 @@ class MoverImplementationTest {
                 ballYCoordinate + direction.getYChange() * 2);
 
 
-        Table actual = new TableImpl();
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(moveAbleEntity, moveAbleEntityPosition);
         actual.putOnPosition(unMoveAbleEntity, unMoveAbleEntityPosition);
 
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionBeforeMove);
         excepted.putOnPosition(moveAbleEntity, moveAbleEntityPosition);
         excepted.putOnPosition(unMoveAbleEntity, unMoveAbleEntityPosition);
@@ -356,7 +370,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void TestMoveWhenMovingHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws cantBeMovedException {
+    void TestMoveWhenMovingEntitysHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws cantBeMovedException {
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
         Entity moveAbleEntity = EntityImpl.BALL;
@@ -370,15 +384,16 @@ class MoverImplementationTest {
                 ballYCoordinate + direction.getYChange() * 2);
 
 
-        Table actual = new TableImpl();
         actual.putOnPosition(movingEntity, positionBeforeMove);
         actual.putOnPosition(moveAbleEntity, moveAbleEntityPosition);
         actual.putOnPosition(notObstacleEntity, notObstacleEntityPosition);
 
         Position positionAfterMove = new IntPosition(ballXCoordinate + direction.getXChange(),
                 ballYCoordinate + direction.getYChange());
-        Table excepted = new TableImpl();
+
         excepted.putOnPosition(movingEntity, positionAfterMove);
+        excepted.putOnPosition(notObstacleEntity, new IntPosition(positionAfterMove.getXCoordinate() + direction.getXChange(),
+                positionAfterMove.getYCoordinate() + direction.getYChange()));
         excepted.putOnPosition(moveAbleEntity, new IntPosition(positionAfterMove.getXCoordinate() + direction.getXChange(),
                 positionAfterMove.getYCoordinate() + direction.getYChange()));
 
@@ -393,5 +408,74 @@ class MoverImplementationTest {
         Logger.trace("actual after move:\n{}", actual.toString());
         Logger.trace("excepted after move:\n{}", excepted.toString());
         assertEquals(actual, excepted);
+    }
+    @Test
+    void TestMoveWhenMovingEntityHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws cantBeMovedException {
+        Direction direction = EnumDirection.RIGHT;
+        Entity movingEntity = EntityImpl.PLAYER;
+
+        Entity notObstacleEntity = EntityImpl.GOAL;
+        int ballXCoordinate = 0;
+        int ballYCoordinate = 0;
+        Position positionBeforeMove = new IntPosition(ballXCoordinate, ballYCoordinate);
+
+        Position notObstacleEntityPosition = new IntPosition(ballXCoordinate + direction.getXChange() ,
+                ballYCoordinate + direction.getYChange() );
+
+
+        actual.putOnPosition(movingEntity, positionBeforeMove);
+
+        actual.putOnPosition(notObstacleEntity, notObstacleEntityPosition);
+
+        Position positionAfterMove = new IntPosition(ballXCoordinate + direction.getXChange(),
+                ballYCoordinate + direction.getYChange());
+
+
+        excepted.putOnPosition(notObstacleEntity, new IntPosition(positionAfterMove.getXCoordinate() ,
+                positionAfterMove.getYCoordinate() ));
+        excepted.putOnPosition(movingEntity, positionAfterMove);
+
+
+        Mover mover = new MoverImplementation();
+        Logger.trace("actual before move:\n{}", actual.toString());
+        Logger.trace("excepted before move:\n{}", excepted.toString());
+
+        //When
+        mover.move(positionBeforeMove, direction, actual);
+        //Then
+        Logger.trace("actual after move:\n{}", actual.toString());
+        Logger.trace("excepted after move:\n{}", excepted.toString());
+        assertEquals(actual, excepted);
+    }
+
+    @Test
+    void TestMovingThroughNoneObstacleEntity() throws cantBeMovedException {
+        //Given
+        Direction direction = EnumDirection.RIGHT;
+        Entity movingEntity = EntityImpl.PLAYER;
+        Entity notObstacleEntity = EntityImpl.GOAL;
+        int x = 1;
+        int y = 1;
+        Position position = new IntPosition(x, y);
+
+        actual.putOnPosition(movingEntity, position);
+        actual.putOnPosition(notObstacleEntity, new IntPosition(x + direction.getXChange(), y + direction.getYChange()));
+
+        excepted.putOnPosition(notObstacleEntity, new IntPosition(x + direction.getXChange(), y + direction.getYChange()));
+        excepted.putOnPosition(movingEntity, new IntPosition(x + direction.getXChange() + direction.getXChange(),
+                y + direction.getYChange() + direction.getYChange()));
+
+        Mover mover = new MoverImplementation();
+        Logger.trace("actual before move:\n{}", actual.toString());
+        Logger.trace("excepted before move:\n{}", excepted.toString());
+
+       //When
+        mover.move(position, direction, actual);
+        mover.move(new IntPosition(x + direction.getXChange(), y + direction.getYChange()), direction, actual);
+        //Then
+        Logger.trace("actual after move:\n{}", actual.toString());
+        Logger.trace("excepted after move:\n{}", excepted.toString());
+        assertEquals(actual, excepted);
+
     }
 }
