@@ -239,4 +239,73 @@ class TableImplTest {
         //Then
         assertEquals(excepted,actual);
     }
+
+    @Test
+    void testEqualsWhenTheTwoTableIsEquals(){
+        //Given
+        Table table1 = new TableImpl();
+        Entity wall = EntityImpl.WALL;
+        Position positionWall = new IntPosition(2, 2);
+        Entity player = EntityImpl.PLAYER;
+        Position positionPlayer = new IntPosition(3,2);
+        Position positionBall1 = new IntPosition(0,0);
+        Position positionBall2 = new IntPosition(4,3);
+        Position positionBall3 = new IntPosition(2,3);
+        table1.putOnPosition(player, positionPlayer);
+        table1.putOnPosition(wall, positionWall);
+        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table1.putOnPosition(EntityImpl.BALL, positionBall1);
+        table1.putOnPosition(EntityImpl.BALL, positionBall2);
+        table1.putOnPosition(EntityImpl.BALL, positionBall3);
+
+        Table table = new TableImpl();
+
+        table.putOnPosition(player, positionPlayer);
+        table.putOnPosition(wall, positionWall);
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table.putOnPosition(EntityImpl.BALL, positionBall1);
+        table.putOnPosition(EntityImpl.BALL, positionBall2);
+        table.putOnPosition(EntityImpl.BALL, positionBall3);
+
+        //When
+
+        //Then
+        assertTrue(table.equals(table1));
+        assertEquals(table,table1);
+
+    }
+    @Test
+    void testEqualsWhenTheTwoTableIsNotEquals(){
+        //Given
+        Table table1 = new TableImpl();
+        Entity wall = EntityImpl.WALL;
+        Position positionWall = new IntPosition(2, 2);
+        Entity player = EntityImpl.PLAYER;
+        Position positionPlayer = new IntPosition(3,2);
+        Position positionBall1 = new IntPosition(0,0);
+        Position positionBall2 = new IntPosition(1,3);
+        Position positionBall3 = new IntPosition(2,3);
+        table1.putOnPosition(player, positionPlayer);
+        table1.putOnPosition(wall, positionWall);
+        table1.putOnPosition(EntityImpl.GOAL, new IntPosition(3,4));
+        table1.putOnPosition(EntityImpl.BALL, positionBall1);
+        table1.putOnPosition(EntityImpl.BALL, positionBall2);
+        table1.putOnPosition(EntityImpl.BALL, positionBall3);
+
+        Table table = new TableImpl();
+
+        table.putOnPosition(player, positionPlayer);
+        table.putOnPosition(wall, positionWall);
+        table.putOnPosition(EntityImpl.GOAL, new IntPosition(4,4));
+        table.putOnPosition(EntityImpl.BALL, positionBall1);
+        table.putOnPosition(EntityImpl.BALL, positionBall2);
+        table.putOnPosition(EntityImpl.BALL, positionBall3);
+
+        //When
+
+        //Then
+        assertFalse(table.equals(table1));
+        assertNotEquals(table,table1);
+
+    }
 }

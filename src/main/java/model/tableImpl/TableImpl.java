@@ -142,13 +142,31 @@ public class TableImpl implements Table {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TableImpl table1 = (TableImpl) o;
-        return  BOARD_SIZE == table1.BOARD_SIZE && Arrays.deepEquals(table, table1.table);
+        if (this.BOARD_SIZE != table1.BOARD_SIZE) {
+            return false;
+        }
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                if (!(this.table[i][j].getValue().equals(table1.table[i][j].getValue()))) {
+                    return false;
+                }
+
+            }
+        }
+        return true;
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hash(BOARD_SIZE);
-        result = 31 * result + Arrays.hashCode(table);
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+
+                result=result+table[i][j].getValue().hashCode();
+
+            }
+        }
+        result = 31 * result;
         return result;
     }
 }

@@ -30,12 +30,12 @@ class MoverImplementationTest {
         Mover mover = new MoverImplementation();
         //When
 
-        mover.move(positionBeforeMove, upDirection, actual);
+       // mover.move(positionBeforeMove, upDirection, actual);
 
         //Then
         Logger.info("actual:{} ,{}",actual.getPlayerPosition().getXCoordinate(),actual.getPlayerPosition().getYCoordinate());
         Logger.info("excepted:{} ,{}",excepted.getPlayerPosition().getXCoordinate(),excepted.getPlayerPosition().getYCoordinate());
-        assertEquals(actual.getPlayerPosition(),positionAfterMove);
+        assertEquals(actual,excepted);
 
 
     }
