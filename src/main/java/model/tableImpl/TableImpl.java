@@ -142,7 +142,7 @@ public class TableImpl implements Table {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TableImpl table1 = (TableImpl) o;
-        return BOARD_SIZE == table1.BOARD_SIZE && Arrays.equals(table, table1.table);
+        return  BOARD_SIZE == table1.BOARD_SIZE && Arrays.deepEquals(table, table1.table);
     }
 
     @Override
