@@ -26,6 +26,16 @@ class TableImplTest {
         int boardSize = 5;
         table2d = new ReadOnlyObjectWrapper[boardSize][boardSize];
         table2d1 = new ReadOnlyObjectWrapper[boardSize][boardSize];
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+
+
+                table2d[i][j] = new ReadOnlyObjectWrapper<Entity>(EntityImpl.NONE);
+                table2d1[i][j] = new ReadOnlyObjectWrapper<Entity>(EntityImpl.NONE);
+
+            }
+        }
+
         Entity entity = EntityImpl.NONE;
         table = new TableImpl(boardSize, table2d, entity);
         table1 = new TableImpl(boardSize, table2d1, entity);
@@ -376,21 +386,22 @@ class TableImplTest {
         assertEquals(excepted, actual);
 
     }
+
     @Test
-    void testCreat2DRepresentationISWorkingRight(){
+    void testCreat2DRepresentationISWorkingRight() {
 
         Position position = new IntPosition(2, 3);
-        table.putOnPosition(EntityImpl.GOAL,position);
+        table.putOnPosition(EntityImpl.GOAL, position);
 
         assertEquals(EntityImpl.GOAL, table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
 
-        table.putOnPosition(EntityImpl.BALL,position);
+        table.putOnPosition(EntityImpl.BALL, position);
         assertEquals(EntityImpl.BALL, table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
 
         table.removeFromPosition(position);
-        assertEquals(EntityImpl.GOAL,table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
+        assertEquals(EntityImpl.GOAL, table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
 
         table.removeFromPosition(position);
-        assertEquals(EntityImpl.NONE,table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
+        assertEquals(EntityImpl.NONE, table2d[position.getXCoordinate()][position.getYCoordinate()].getValue());
     }
 }

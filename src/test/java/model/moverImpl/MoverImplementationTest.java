@@ -24,6 +24,15 @@ class MoverImplementationTest {
         int boardSize = 5;
         table2d = new ReadOnlyObjectWrapper[boardSize][boardSize];
         table2d1 = new ReadOnlyObjectWrapper[boardSize][boardSize];
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+
+
+                table2d[i][j] = new ReadOnlyObjectWrapper<Entity>(EntityImpl.NONE);
+                table2d1[i][j] = new ReadOnlyObjectWrapper<Entity>(EntityImpl.NONE);
+
+            }
+        }
         Entity entity = EntityImpl.NONE;
         excepted = new TableImpl(boardSize, table2d, entity);
         actual = new TableImpl(boardSize, table2d1, entity);

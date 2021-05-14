@@ -32,9 +32,9 @@ public class TableImpl implements Table {
         table = new ReadOnlyObjectWrapper[bordSize][bordSize][2];
         for (int i = 0; i < bordSize; i++) {
             for (int j = 0; j < bordSize; j++) {
-                table[i][j][0] = new ReadOnlyObjectWrapper<Entity>(entity.giveBackNone());
+                table[i][j][0] = table2DRepresentation[i][j];
                 table[i][j][1] = new ReadOnlyObjectWrapper<Entity>(entity.giveBackNone());
-                table2DRepresentation[i][j] = new ReadOnlyObjectWrapper<Entity>(entity.giveBackNone());
+
             }
         }
     }
