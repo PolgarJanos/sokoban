@@ -3,6 +3,7 @@ package model;
 import javafx.beans.property.*;
 import model.entityImpl.asEnum.EntityImpl;
 import model.moverImpl.MoverImplementation;
+import model.moverImpl.WeakMover;
 import model.tableImpl.TableImpl;
 import org.tinylog.Logger;
 
@@ -18,7 +19,7 @@ public class SokobanGameModel {
     private ReadOnlyObjectWrapper<Entity>[][] board = new ReadOnlyObjectWrapper[boardSize][boardSize];
     private ReadOnlyObjectWrapper<Set<Position>> ballPosition =  new ReadOnlyObjectWrapper<>();
     private ReadOnlyObjectWrapper<Set<Position>> goalPosition = new ReadOnlyObjectWrapper<>();
-    private Mover mover = new MoverImplementation();
+    private Mover mover = new WeakMover();
 
     private Table tableRepresentation;
     private ReadOnlyBooleanWrapper gameOver = new ReadOnlyBooleanWrapper();

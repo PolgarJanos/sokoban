@@ -207,6 +207,25 @@ class SokobanGameModelTest {
         //Then
         assertTrue(actual.GetReadOnlyGameOverProperty().getValue());
     }
+    @Test
+    void TestConstructors(){
+        //Given
+        //When
+        actual = new SokobanGameModel(Configuration.ValuableEntities());
+        excepted = new SokobanGameModel();
+        //Then
+        assertEquals(actual,excepted);
+    }
+
+    @Test
+    void TestHashCode(){
+        //Given
+        //When
+        actual = new SokobanGameModel(Configuration.ValuableEntities());
+        excepted = new SokobanGameModel();
+        //Then
+        assertEquals(actual.hashCode(),excepted.hashCode());
+    }
 
 
 }
