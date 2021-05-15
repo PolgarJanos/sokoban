@@ -9,7 +9,7 @@ import model.positionImpl.IntPosition;
 public class MoverImplementation implements Mover {
 
     @Override
-    public void move(Position position, Direction direction, Table table) throws cantBeMovedException, IllegalArgumentException {
+    public void move(Position position, Direction direction, Table table) throws CantBeMovedException, IllegalArgumentException {
         Position whereToMovedPosition = new IntPosition(position.getXCoordinate() + direction.getXChange(),
                 position.getYCoordinate() + direction.getYChange());
         if (table.isEmptyOnPosition(whereToMovedPosition) || table.isMoveAbleOnPosition(whereToMovedPosition)) {
@@ -27,7 +27,7 @@ public class MoverImplementation implements Mover {
             table.putOnPosition(toBeMovedEntity, whereToMovedPosition);
         } else {
 
-            throw new cantBeMovedException(table.getEntityFromPosition(whereToMovedPosition).toString() + " can't be moved.");
+            throw new CantBeMovedException(table.getEntityFromPosition(whereToMovedPosition).toString() + " can't be moved.");
         }
 
 

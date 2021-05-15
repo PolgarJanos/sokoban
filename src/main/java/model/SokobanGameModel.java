@@ -1,9 +1,6 @@
 package model;
 
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyBooleanWrapper;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.ReadOnlySetWrapper;
+import javafx.beans.property.*;
 import model.entityImpl.asEnum.EntityImpl;
 import model.moverImpl.MoverImplementation;
 import model.tableImpl.TableImpl;
@@ -77,9 +74,9 @@ public class SokobanGameModel {
      * Moving the player to the given direction.
      *
      * @param direction where to move the player
-     * @throws cantBeMovedException if the player cant be moved.
+     * @throws CantBeMovedException if the player cant be moved.
      */
-    public void move(Direction direction) throws cantBeMovedException {
+    public void move(Direction direction) throws CantBeMovedException {
         mover.move(tableRepresentation.getPlayerPosition(), direction, tableRepresentation);
 
        ballPosition.set(tableRepresentation.getBallPositions());
@@ -131,6 +128,10 @@ public class SokobanGameModel {
             sb.append('\n');
         }
         return sb.toString();
+    }
+
+    public ReadOnlyObjectProperty<Entity> squareProperty(int i, int j) {
+        return board[i][j].getReadOnlyProperty();
     }
 
 

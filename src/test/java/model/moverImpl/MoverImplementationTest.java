@@ -39,7 +39,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void testMoveOnePlayerUp() throws cantBeMovedException {
+    void testMoveOnePlayerUp() throws CantBeMovedException {
         //Given
         Direction upDirection = EnumDirection.UP;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -67,7 +67,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void testMoveOnePlayerDown() throws cantBeMovedException {
+    void testMoveOnePlayerDown() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.DOWN;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -95,7 +95,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void testMoveOnePlayerRight() throws cantBeMovedException {
+    void testMoveOnePlayerRight() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -123,7 +123,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void testMoveOnePlayerLeft() throws cantBeMovedException {
+    void testMoveOnePlayerLeft() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.LEFT;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -151,7 +151,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void testMoveWhenMovingEntityIsMovingOnAnUnMoveAbelEntityShouldNotChangeTheTable() throws cantBeMovedException {
+    void testMoveWhenMovingEntityIsMovingOnAnUnMoveAbelEntityShouldNotChangeTheTable() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.LEFT;
         Entity movingEntity = EntityImpl.BALL;
@@ -212,11 +212,11 @@ class MoverImplementationTest {
         //Then
         Logger.trace("actual after move:\n{}", actual.toString());
         Logger.trace("excepted after move:\n{}", excepted.toString());
-        assertThrows(cantBeMovedException.class, () -> mover.move(positionBeforeMove, direction, actual));
+        assertThrows(CantBeMovedException.class, () -> mover.move(positionBeforeMove, direction, actual));
     }
 
     @Test
-    void testMoveMovingEntityPushTheEntityWhichInHisWay() throws cantBeMovedException {
+    void testMoveMovingEntityPushTheEntityWhichInHisWay() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.DOWN;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -254,7 +254,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void TestMovePushingTwoMoveAbleWhitEntity() throws cantBeMovedException {
+    void TestMovePushingTwoMoveAbleWhitEntity() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -299,7 +299,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void TestMoveWhenEntitiesMovingAndHitAunMoveAbleShouldNotChangeTheTable() throws cantBeMovedException {
+    void TestMoveWhenEntitiesMovingAndHitAunMoveAbleShouldNotChangeTheTable() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -342,7 +342,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void TestMoveWhenEntitiesMovingAndHitAunMoveAbleShouldThrowCantBeMovedException() throws cantBeMovedException {
+    void TestMoveWhenEntitiesMovingAndHitAunMoveAbleShouldThrowCantBeMovedException() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
@@ -375,11 +375,11 @@ class MoverImplementationTest {
         //Then
         Logger.trace("actual after move:\n{}", actual.toString());
         Logger.trace("excepted after move:\n{}", excepted.toString());
-        assertThrows(cantBeMovedException.class, () -> mover.move(positionBeforeMove, direction, actual));
+        assertThrows(CantBeMovedException.class, () -> mover.move(positionBeforeMove, direction, actual));
     }
 
     @Test
-    void TestMoveWhenMovingEntitysHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws cantBeMovedException {
+    void TestMoveWhenMovingEntitysHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws CantBeMovedException {
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
         Entity moveAbleEntity = EntityImpl.BALL;
@@ -419,7 +419,7 @@ class MoverImplementationTest {
         assertEquals(actual, excepted);
     }
     @Test
-    void TestMoveWhenMovingEntityHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws cantBeMovedException {
+    void TestMoveWhenMovingEntityHitAnUnMoveAbleEntityWhichIsNotObstacleShouldMoveThere() throws CantBeMovedException {
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;
 
@@ -458,7 +458,7 @@ class MoverImplementationTest {
     }
 
     @Test
-    void TestMovingThroughNoneObstacleEntity() throws cantBeMovedException {
+    void TestMovingThroughNoneObstacleEntity() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
         Entity movingEntity = EntityImpl.PLAYER;

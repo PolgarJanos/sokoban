@@ -4,12 +4,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SokobanGameController">
    <children>
       <MenuBar />
       <HBox prefHeight="378.0" prefWidth="600.0">
          <children>
-            <GridPane fx:id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity">
+            <GridPane fx:id="board" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@ui.css">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="30.0" prefWidth="30.0" />
@@ -49,10 +49,10 @@
 
                     </rowConstraints>
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Up" textAlignment="CENTER" GridPane.columnIndex="1" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Left" GridPane.rowIndex="1" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Down" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Right" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleUpButton" text="Up" textAlignment="CENTER" GridPane.columnIndex="1" />
+                        <Button fx:id="handleLeftButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLeftButton" text="Left" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.rowIndex="1" />
+                        <Button fx:id="handleDownButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDownButton" text="Down" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRightButton" text="Right" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="CROSSHAIR" />

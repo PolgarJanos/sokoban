@@ -3,7 +3,7 @@ package model;
 /**
  * Signals that an {@code Entity} can 't be moved.
  */
-public class cantBeMovedException extends Exception {
+public class CantBeMovedException extends Exception {
     /**
      * Constructs an {@code cantBeMovedException} with the specified detail message.
      *
@@ -11,7 +11,7 @@ public class cantBeMovedException extends Exception {
      *                by the {@link #getMessage()} method)
      */
 
-    public cantBeMovedException(String message) {
+    public CantBeMovedException(String message) {
         super(message);
     }
 

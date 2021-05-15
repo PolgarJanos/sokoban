@@ -1,7 +1,5 @@
 package model;
 
-import javafx.beans.property.*;
-import javafx.collections.ObservableSet;
 import model.directionImpl.EnumDirection;
 import model.entityImpl.asEnum.EntityImpl;
 import model.positionImpl.IntPosition;
@@ -9,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tinylog.Logger;
 
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,7 +70,7 @@ class SokobanGameModelTest {
     }
 
     @Test
-    void moveLeft() throws cantBeMovedException {
+    void moveLeft() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.LEFT;
         List<EntityWrapper> entityWrapperList = new LinkedList<>();
@@ -95,7 +92,7 @@ class SokobanGameModelTest {
     }
 
     @Test
-    void moveUp() throws cantBeMovedException {
+    void moveUp() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.UP;
         List<EntityWrapper> entityWrapperList = new LinkedList<>();
@@ -117,7 +114,7 @@ class SokobanGameModelTest {
     }
 
     @Test
-    void moveRight() throws cantBeMovedException {
+    void moveRight() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
         List<EntityWrapper> entityWrapperList = new LinkedList<>();
@@ -139,7 +136,7 @@ class SokobanGameModelTest {
     }
 
     @Test
-    void moveDown() throws cantBeMovedException {
+    void moveDown() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.DOWN;
 
@@ -162,12 +159,9 @@ class SokobanGameModelTest {
     }
 
     @Test
-    void getReadOnlyGameOverPropertyAfterANoWiningMoveShouldGiveBackFalse() throws cantBeMovedException {
+    void getReadOnlyGameOverPropertyAfterANoWiningMoveShouldGiveBackFalse() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.RIGHT;
-
-
-
         //When
         Logger.trace("Before move\n{}", actual.toString());
         actual.move(direction);
@@ -175,12 +169,11 @@ class SokobanGameModelTest {
 
         //Then
 
-
         assertFalse(actual.GetReadOnlyGameOverProperty().getValue());
     }
 
     @Test
-    void getReadOnlyGameOverPropertyAfterANoWiningWhitPushingBallMoveShouldGiveBackFalse() throws cantBeMovedException {
+    void getReadOnlyGameOverPropertyAfterANoWiningWhitPushingBallMoveShouldGiveBackFalse() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.DOWN;
         List<EntityWrapper> entityWrapperList = new LinkedList<>();
@@ -202,11 +195,9 @@ class SokobanGameModelTest {
     }
 
     @Test
-    void getReadOnlyGameOverPropertyAfterAWiningMoveShouldGiveBackTrue() throws cantBeMovedException {
+    void getReadOnlyGameOverPropertyAfterAWiningMoveShouldGiveBackTrue() throws CantBeMovedException {
         //Given
         Direction direction = EnumDirection.DOWN;
-
-
 
         //When
         Logger.trace("Before move\n{}", actual.toString());
@@ -214,11 +205,8 @@ class SokobanGameModelTest {
         Logger.trace("After move\n{}", actual.toString());
 
         //Then
-
-
         assertTrue(actual.GetReadOnlyGameOverProperty().getValue());
     }
-
 
 
 }
