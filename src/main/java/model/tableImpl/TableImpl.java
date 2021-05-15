@@ -22,8 +22,13 @@ public class TableImpl implements Table {
     private ReadOnlyObjectWrapper<Entity>[][] table2DRepresentation;
     private Entity entity;
 
+
     /**
      * Representing the game bord.
+     *
+     * @param bordSize              the size of the board.
+     * @param table2DRepresentation the table 2 dimension representation.
+     * @param entity                which will be place on the board.
      */
     public TableImpl(int bordSize, ReadOnlyObjectWrapper<Entity>[][] table2DRepresentation, Entity entity) {
         this.bordSize = bordSize;
@@ -37,6 +42,7 @@ public class TableImpl implements Table {
 
             }
         }
+        //creat2DRepresentation();
     }
 
     @Override

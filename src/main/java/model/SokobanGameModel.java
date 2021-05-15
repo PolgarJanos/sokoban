@@ -7,48 +7,132 @@ import javafx.beans.property.ReadOnlySetWrapper;
 import model.entityImpl.asEnum.EntityImpl;
 import model.moverImpl.MoverImplementation;
 import model.tableImpl.TableImpl;
+import org.tinylog.Logger;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
+/**
+ * Representing the Sokoban game model.
+ */
 public class SokobanGameModel {
-    public  int boardSize = Configuration.BOARD_SIZE;
+    private int boardSize = Configuration.BOARD_SIZE;
     private ReadOnlyObjectWrapper<Entity>[][] board = new ReadOnlyObjectWrapper[boardSize][boardSize];
-    private ReadOnlySetWrapper<Position> ballPosition;
-    private ReadOnlySetWrapper<Position> goalPosition;
+    private ReadOnlyObjectWrapper<Set<Position>> ballPosition =  new ReadOnlyObjectWrapper<>();
+    private ReadOnlyObjectWrapper<Set<Position>> goalPosition = new ReadOnlyObjectWrapper<>();
     private Mover mover = new MoverImplementation();
 
     private Table tableRepresentation;
     private ReadOnlyBooleanWrapper gameOver = new ReadOnlyBooleanWrapper();
 
-    private List<EntityWrapper> valuableEntities = Configuration.ValuableEntities();
 
+    /**
+     * Creating a Sokoban game model from {@code Configuration} .
+     */
     public SokobanGameModel() {
-        boardInit(valuableEntities);
+        boardInit(Configuration.ValuableEntities());
         tableRepresentation = new TableImpl(boardSize, board, EntityImpl.NONE);
-        ballPosition.addAll(tableRepresentation.getBallPositions());
-        goalPosition.addAll(tableRepresentation.getGoalPositions());
+        ballPosition.set(tableRepresentation.getBallPositions());
+        goalPosition.set(tableRepresentation.getGoalPositions());
         gameOver.bind(ballPosition.isEqualTo(goalPosition));
     }
 
-    private void boardInit(Collection<EntityWrapper> valuableEntities) {
+    /**
+     * Creating a Sokoban game model from a {@code List} .
+     *
+     * @param entityWrapperList the list what is representing the Entities.
+     */
+    public SokobanGameModel(List<EntityWrapper> entityWrapperList) {
+        boardInit(entityWrapperList);
+        tableRepresentation = new TableImpl(boardSize, board, EntityImpl.NONE);
+        ballPosition.set(tableRepresentation.getBallPositions());
+        goalPosition.set(tableRepresentation.getGoalPositions());
+
+
+        gameOver.bind(ballPosition.isEqualTo(goalPosition));
+    }
+
+    private void boardInit(List<EntityWrapper> valuableEntities) {
         for (int i = 0; i < boardSize; i++) {
             for (int j = 0; j < boardSize; j++) {
                 board[i][j] = new ReadOnlyObjectWrapper<Entity>(EntityImpl.NONE);
             }
         }
-        valuableEntities.stream().map(a -> board[a.getXCoordinate()][a.getYCoordinate()]= new ReadOnlyObjectWrapper<>(a.getEntity()));
+
+        valuableEntities.stream().forEach(a -> board[a.getXCoordinate()][a.getYCoordinate()].set(a.getEntity()));
+
+        Logger.trace(toString());
 
     }
 
+    /**
+     * @return the gemaOver readOnlyProperty.
+     */
     public ReadOnlyBooleanProperty GetReadOnlyGameOverProperty() {
         return gameOver.getReadOnlyProperty();
     }
 
+    /**
+     * Moving the player to the given direction.
+     *
+     * @param direction where to move the player
+     * @throws cantBeMovedException if the player cant be moved.
+     */
     public void move(Direction direction) throws cantBeMovedException {
         mover.move(tableRepresentation.getPlayerPosition(), direction, tableRepresentation);
-        ballPosition.addAll(tableRepresentation.getBallPositions());
+
+       ballPosition.set(tableRepresentation.getBallPositions());
+        Logger.trace("Balls on goals:{}",tableRepresentation.getGoalPositions().equals(tableRepresentation.getBallPositions()));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SokobanGameModel table1 = (SokobanGameModel) o;
+        if (this.boardSize != table1.boardSize) {
+            return false;
+        }
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++)
+
+                if (!(this.board[i][j].get().equals(table1.board[i][j].get()))) {
+                    return false;
+
+
+                }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(boardSize);
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                for (int k = 0; k < 2; k++) {
+                    result = result + board[i][j].getValue().hashCode();
+
+                }
+            }
+        }
+        result = 31 * result;
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < boardSize; i++) {
+            for (int j = 0; j < boardSize; j++) {
+                sb.append(board[j][i].getValue().toString()).append(' ');
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
 
 }
 

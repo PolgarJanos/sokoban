@@ -2,24 +2,41 @@ package model;
 
 import java.util.Objects;
 
+/**
+ * Represent a entity  with his position.
+ */
 public class EntityWrapper {
-private Entity entity;
-private  Position position;
+    private Entity entity;
+    private Position position;
 
+    /**
+     * Creat a {@code EntityWrapper}.
+     *
+     * @param entity   entity to be wrapped.
+     * @param position the entity position on the board.
+     */
     public EntityWrapper(Entity entity, Position position) {
         this.entity = entity;
         this.position = position;
     }
 
-
+    /**
+     * @return the entity first coordinate.
+     */
     public int getXCoordinate() {
         return position.getXCoordinate();
     }
 
+    /**
+     * @return the entity second coordinate.
+     */
     public int getYCoordinate() {
         return position.getYCoordinate();
     }
 
+    /**
+     * @return the entity from the wrapper.
+     */
     public Entity getEntity() {
         return entity;
     }
