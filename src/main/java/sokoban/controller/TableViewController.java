@@ -32,14 +32,11 @@ public class TableViewController {
     @FXML
     private TableView tableView;
 
-
-
     @FXML
     private TableColumn<GameWinner, String> name;
+
     @FXML
     private TableColumn<GameWinner, Integer> steps;
-
-
 
     @FXML
     private void initialize() throws IOException {
@@ -53,7 +50,7 @@ public class TableViewController {
         File file = new File(filePath);
         InputStream inputStream = new FileInputStream(file);
         List<GameWinner> countries = new LinkedList<>();
-        if(inputStream.available()>0) {
+        if (inputStream.available() > 0) {
             countries = new ObjectMapper()
                     .registerModule(new JavaTimeModule())
                     .readValue(inputStream, new TypeReference<List<GameWinner>>() {

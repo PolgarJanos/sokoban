@@ -31,6 +31,7 @@ import sokoban.model.directionImpl.EnumDirection;
 import sokoban.model.entityImpl.asEnum.EntityImpl;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -40,9 +41,12 @@ import java.util.List;
 public class SokobanGameController {
 
     private SokobanGameModel model = new SokobanGameModel();
+
     @FXML
     private GridPane board;
+
     private String name;
+
     @FXML
     private Button giveUpFinishButton;
 
@@ -91,10 +95,12 @@ public class SokobanGameController {
                     .readValue(inputStream, new TypeReference<List<GameWinner>>() {
                     });
         }
-        countries.add(new GameWinner(name,steps.get()));
+        countries.add(new GameWinner(name, steps.get()));
+        countries = countries.stream().sorted(Comparator.comparing(GameWinner::getSteps)).toList();
         var objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         try (var writer = new FileWriter(file)) {
             objectMapper.writeValue(writer, countries);
+            Logger.info("Result have been saved.");
         }
 
     }
@@ -206,7 +212,7 @@ public class SokobanGameController {
             Logger.info("{}", e.toString());
             steps.set(steps.get() - 1);
         }
-        Logger.info("Number of Steps: {}",steps.get());
+        Logger.info("Number of Steps: {}", steps.get());
     }
 
 
