@@ -13,6 +13,9 @@ import sokoban.controller.SokobanGameController;
 
 import java.io.IOException;
 
+/**
+ * Controller for the opening scene.
+ */
 public class OpenerController {
 
     @FXML

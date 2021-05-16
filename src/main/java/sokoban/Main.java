@@ -7,10 +7,16 @@ import java.io.File;
 import java.io.IOException;
 
 
-//toDo repackaging
-
+/**
+ * Representing the program entry point.
+ */
 public class Main {
-
+    /**
+     * Program entry point.
+     *
+     * @param args command line arguments.
+     * @throws IOException if any I/O exception occur.
+     */
     public static void main(String[] args) throws IOException {
         String filePath;
         StringBuilder stringBuilder = new StringBuilder();
@@ -32,10 +38,10 @@ public class Main {
         } else {
             Logger.info("Creating file {}", file.getAbsolutePath());
             file.createNewFile();
-            }
-            if (file.exists()) {
-                Logger.info("Created file {}", file.getAbsolutePath());
-            }
+        }
+        if (file.exists()) {
+            Logger.info("Created file {}", file.getAbsolutePath());
+        }
 
         Application.launch(SokobanGameApplication.class, args);
     }

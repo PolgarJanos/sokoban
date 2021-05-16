@@ -18,6 +18,9 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Controller for the result list scene.
+ */
 public class TableViewController {
 
     @FXML

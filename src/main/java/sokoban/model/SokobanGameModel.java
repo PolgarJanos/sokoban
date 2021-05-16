@@ -131,6 +131,12 @@ public class SokobanGameModel {
         return sb.toString();
     }
 
+    /**
+     * Return a Entity wrap into ReadOnlyObjectProperty from the board {@code i} {@code j} position.
+     * @param i representing first coordinate
+     * @param j representing second coordinate
+     * @return a ReadOnlyObjectProperty from the board {@code i} {@code j} position
+     */
     public ReadOnlyObjectProperty<Entity> squareProperty(int i, int j) {
         return board[i][j].getReadOnlyProperty();
     }

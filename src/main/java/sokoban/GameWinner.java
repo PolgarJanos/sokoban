@@ -1,10 +1,8 @@
 package sokoban;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.time.ZoneId;
-import java.util.List;
-
+/**
+ * Representing a winner Player.
+ */
 @lombok.Data
 @lombok.AllArgsConstructor
 @lombok.NoArgsConstructor

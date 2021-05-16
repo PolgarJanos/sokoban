@@ -30,6 +30,9 @@ import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Controller for the opening Game scene.
+ */
 public class SokobanGameController {
 
     private SokobanGameModel model = new SokobanGameModel();
@@ -84,6 +87,10 @@ public class SokobanGameController {
 
     }
 
+    /**
+     * Sets the name of the Player.
+     * @param name of the player.
+     */
     public void setName(String name) {
         Logger.info("Setting name to {}", name);
         this.name = name;
@@ -170,7 +177,7 @@ public class SokobanGameController {
         }
     }
     @FXML
-    public void handleGiveUpFinishButton(ActionEvent actionEvent) throws IOException {
+    private void handleGiveUpFinishButton(ActionEvent actionEvent) throws IOException {
         var buttonText = ((Button) actionEvent.getSource()).getText();
         Logger.debug("{} is pressed", buttonText);
         if (buttonText.equals("Give Up")) {
