@@ -21,6 +21,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import sokoban.GameWinner;
 import sokoban.model.CantBeMovedException;
+import sokoban.model.Direction;
 import sokoban.model.SokobanGameModel;
 import sokoban.model.directionImpl.EnumDirection;
 import sokoban.model.entityImpl.asEnum.EntityImpl;
@@ -137,46 +138,22 @@ public class SokobanGameController {
 
     @FXML
     private void handleUpButton() {
-        try {
-            model.move(EnumDirection.UP);
-        } catch (CantBeMovedException e) {
-            Logger.info("{}", e.toString());
-        } catch (Exception e) {
-            Logger.info("{}", e.toString());
-        }
+        move(EnumDirection.UP);
     }
 
     @FXML
     private void handleDownButton() {
-        try {
-            model.move(EnumDirection.DOWN);
-        } catch (CantBeMovedException e) {
-            Logger.info("{}", e.toString());
-        } catch (Exception e) {
-            Logger.info("{}", e.toString());
-        }
+        move(EnumDirection.DOWN);
     }
 
     @FXML
     private void handleRightButton() {
-        try {
-            model.move(EnumDirection.RIGHT);
-        } catch (CantBeMovedException e) {
-            Logger.info("{}", e.toString());
-        } catch (Exception e) {
-            Logger.info("{}", e.toString());
-        }
+        move(EnumDirection.RIGHT);
     }
 
     @FXML
     private void handleLeftButton() {
-        try {
-            model.move(EnumDirection.LEFT);
-        } catch (CantBeMovedException e) {
-            Logger.info("{}", e.toString());
-        } catch (Exception e) {
-            Logger.info("{}", e.toString());
-        }
+      move(EnumDirection.LEFT);
     }
     @FXML
     private void handleGiveUpFinishButton(ActionEvent actionEvent) throws IOException {
@@ -204,6 +181,16 @@ public class SokobanGameController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    private void move(Direction direction){
+        try {
+            model.move(direction);
+        } catch (CantBeMovedException e) {
+            Logger.info("{}", e.toString());
+        } catch (Exception e) {
+            Logger.info("{}", e.toString());
+        }
     }
 
 
