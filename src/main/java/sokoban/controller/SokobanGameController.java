@@ -108,7 +108,7 @@ public class SokobanGameController {
     private StackPane createSquare(int i, int j) {
         var square = new StackPane();
         square.getStyleClass().add("square");
-        //todo magic Number to constants
+
         var piece = new Circle(10);
 
         piece.fillProperty().bind(
