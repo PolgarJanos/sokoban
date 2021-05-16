@@ -8,11 +8,9 @@
    <children>
       <TableView fx:id="tableView">
         <columns>
-          <TableColumn fx:id="code" prefWidth="75.0" text="Code" />
+
           <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="capital" prefWidth="75.0" text="Capital" />
-            <TableColumn fx:id="population" prefWidth="75.0" text="Population" />
-            <TableColumn fx:id="numberOfTimezones" prefWidth="75.0" text="Timezones" />
+
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

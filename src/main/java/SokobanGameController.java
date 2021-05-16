@@ -1,3 +1,7 @@
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.beans.binding.ObjectBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +24,9 @@ import model.entityImpl.asEnum.EntityImpl;
 import org.tinylog.Logger;
 
 import javax.imageio.IIOException;
-import java.io.IOException;
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SokobanGameController {
 
@@ -44,9 +50,36 @@ public class SokobanGameController {
                         alert.setContentText(String.format("Congratulations, %s!", name));
                         alert.show();
                         giveUpFinishButton.setText("Finish");
+                        try {
+                            saveToList();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
         );
+    }
+
+    private void saveToList() throws IOException {
+        String filePath;
+        StringBuilder stringBuilder = new StringBuilder();
+        filePath = stringBuilder.append(System.getProperty("user.home")).append(File.separator).append(".sokoban").append(File.separator).append("resultList.json").toString();
+
+        File file = new File(filePath);
+        InputStream inputStream = new FileInputStream(file);
+        List<Country> countries = new LinkedList<>();
+        if(inputStream.available()>0) {
+            countries = new ObjectMapper()
+                    .registerModule(new JavaTimeModule())
+                    .readValue(inputStream, new TypeReference<List<Country>>() {
+                    });
+        }
+        countries.add(new Country(name));
+        var objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        try (var writer = new FileWriter(file)) {
+            objectMapper.writeValue(writer, countries);
+        }
+
     }
 
     public void setName(String name) {
@@ -143,10 +176,8 @@ public class SokobanGameController {
             Logger.info("The game has been given up");
         }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("resultList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("table.fxml"));
         Parent root = fxmlLoader.load();
-        TableViewController controller = fxmlLoader.<TableViewController>getController();
-
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();

@@ -31,7 +31,7 @@ public class Configuration {
         entities.add(new EntityWrapper(EntityImpl.GOAL, new IntPosition(7,3)));
         entities.add(new EntityWrapper(EntityImpl.GOAL, new IntPosition(7,4)));
         entities.add(new EntityWrapper(EntityImpl.GOAL, new IntPosition(7,5)));
-        creatWall(new IntPosition(0,0), EnumDirection.RIGHT,5);
+       creatWall(new IntPosition(0,0), EnumDirection.RIGHT,5);
         creatWall(new IntPosition(4,1), EnumDirection.DOWN,4);
         creatWall(new IntPosition(5,4), EnumDirection.RIGHT,2);
         creatWall(new IntPosition(6,3), EnumDirection.UP,2);

@@ -5,9 +5,7 @@ import java.util.List;
 
 @lombok.Data
 @lombok.AllArgsConstructor
-@lombok.NoArgsConstructor
-@lombok.Builder
-public class Country {
+public class GameWinner {
 
 
     private String name;
