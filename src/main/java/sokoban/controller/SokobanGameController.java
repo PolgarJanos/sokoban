@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.beans.binding.ObjectBinding;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,19 +15,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import org.tinylog.Logger;
 import sokoban.GameWinner;
 import sokoban.model.CantBeMovedException;
 import sokoban.model.Direction;
 import sokoban.model.SokobanGameModel;
 import sokoban.model.directionImpl.EnumDirection;
 import sokoban.model.entityImpl.asEnum.EntityImpl;
-import org.tinylog.Logger;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -44,6 +47,11 @@ public class SokobanGameController {
     private Button giveUpFinishButton;
 
     @FXML
+    private Label stepsLabel;
+
+    private IntegerProperty steps = new SimpleIntegerProperty();
+
+    @FXML
     private void initialize() throws IOException {
         createBoard();
         Logger.info("name = {}", name);
@@ -51,7 +59,7 @@ public class SokobanGameController {
                 ((observableValue, oldValue, newValue) -> {
                     if (newValue) {
                         Logger.info("It's a Win.");
-                        Alert alert =new Alert(Alert.AlertType.INFORMATION);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setHeaderText("Win");
                         alert.setContentText(String.format("Congratulations, %s!", name));
                         alert.show();
@@ -64,8 +72,9 @@ public class SokobanGameController {
                     }
                 })
         );
+        stepsLabel.textProperty().bind(steps.asString());
+        steps.set(0);
     }
-
 
 
     private void saveToList() throws IOException {
@@ -76,13 +85,13 @@ public class SokobanGameController {
         File file = new File(filePath);
         InputStream inputStream = new FileInputStream(file);
         List<GameWinner> countries = new LinkedList<>();
-        if(inputStream.available()>0) {
+        if (inputStream.available() > 0) {
             countries = new ObjectMapper()
                     .registerModule(new JavaTimeModule())
                     .readValue(inputStream, new TypeReference<List<GameWinner>>() {
                     });
         }
-        countries.add(new GameWinner(name));
+        countries.add(new GameWinner(name,steps.get()));
         var objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         try (var writer = new FileWriter(file)) {
             objectMapper.writeValue(writer, countries);
@@ -92,6 +101,7 @@ public class SokobanGameController {
 
     /**
      * Sets the name of the Player.
+     *
      * @param name of the player.
      */
     public void setName(String name) {
@@ -153,8 +163,9 @@ public class SokobanGameController {
 
     @FXML
     private void handleLeftButton() {
-      move(EnumDirection.LEFT);
+        move(EnumDirection.LEFT);
     }
+
     @FXML
     private void handleGiveUpFinishButton(ActionEvent actionEvent) throws IOException {
         var buttonText = ((Button) actionEvent.getSource()).getText();
@@ -171,6 +182,7 @@ public class SokobanGameController {
         stage.show();
 
     }
+
     @FXML
     private void handleResetButton(ActionEvent event) throws IOException {
 
@@ -183,14 +195,18 @@ public class SokobanGameController {
         stage.show();
     }
 
-    private void move(Direction direction){
+    private void move(Direction direction) {
         try {
+            steps.set(steps.get() + 1);
             model.move(direction);
         } catch (CantBeMovedException e) {
             Logger.info("{}", e.toString());
+            steps.set(steps.get() - 1);
         } catch (Exception e) {
             Logger.info("{}", e.toString());
+            steps.set(steps.get() - 1);
         }
+        Logger.info("Number of Steps: {}",steps.get());
     }
 
 

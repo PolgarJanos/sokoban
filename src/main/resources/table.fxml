@@ -11,7 +11,8 @@
               <columns>
       
                 <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
-      
+                <TableColumn fx:id="steps" prefWidth="75.0" text="Steps" />
+
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

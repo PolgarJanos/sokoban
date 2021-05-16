@@ -36,6 +36,8 @@ public class TableViewController {
 
     @FXML
     private TableColumn<GameWinner, String> name;
+    @FXML
+    private TableColumn<GameWinner, Integer> steps;
 
 
 
@@ -43,7 +45,7 @@ public class TableViewController {
     private void initialize() throws IOException {
 
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+        steps.setCellValueFactory(new PropertyValueFactory<>("steps"));
         String filePath;
         StringBuilder stringBuilder = new StringBuilder();
         filePath = stringBuilder.append(System.getProperty("user.home")).append(File.separator).append(".sokoban").append(File.separator).append("resultList.json").toString();

@@ -11,6 +11,7 @@ public class GameWinner {
 
 
     private String name;
+    private Integer steps;
 
 
 }

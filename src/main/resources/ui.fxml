@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sokoban.controller.SokobanGameController">
+<VBox  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sokoban.controller.SokobanGameController">
    <children>
       <HBox prefHeight="378.0" prefWidth="600.0">
          <children>
@@ -56,6 +56,8 @@
                         <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRightButton" text="Right" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Button fx:id="giveUpFinishButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleGiveUpFinishButton" text="Give Up" textAlignment="CENTER" GridPane.rowIndex="3" />
                         <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleResetButton" text="Reset" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Steps:" textAlignment="CENTER" GridPane.rowIndex="2" />
+                        <Label fx:id="stepsLabel" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                      <cursor>
                         <Cursor fx:constant="CROSSHAIR" />
