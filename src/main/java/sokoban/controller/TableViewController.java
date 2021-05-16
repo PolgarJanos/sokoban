@@ -5,10 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import sokoban.GameWinner;
 
 import java.io.File;
@@ -54,6 +60,16 @@ public class TableViewController {
         ObservableList<GameWinner> observableList = FXCollections.observableArrayList();
         observableList.addAll(countries);
         tableView.setItems(observableList);
+    }
+
+    @FXML
+    private void HandelRestartButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/opener.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 
 }

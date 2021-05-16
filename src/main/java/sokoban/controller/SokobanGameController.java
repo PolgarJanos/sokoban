@@ -65,6 +65,8 @@ public class SokobanGameController {
         );
     }
 
+
+
     private void saveToList() throws IOException {
         String filePath;
         StringBuilder stringBuilder = new StringBuilder();
@@ -192,5 +194,17 @@ public class SokobanGameController {
         stage.show();
 
     }
+    @FXML
+    private void handleResetButton(ActionEvent event) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui.fxml"));
+        Parent root = fxmlLoader.load();
+        SokobanGameController controller = fxmlLoader.<SokobanGameController>getController();
+        controller.setName(name);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 
 }
