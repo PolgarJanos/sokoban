@@ -1,7 +1,7 @@
 package model.entityImpl;
 
-import model.Entity;
-import model.entityImpl.asEnum.EntityImpl;
+import sokoban.model.Entity;
+import sokoban.model.entityImpl.asEnum.EntityImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

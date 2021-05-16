@@ -1,3 +1,5 @@
+package sokoban.controller;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -17,13 +19,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import model.CantBeMovedException;
-import model.SokobanGameModel;
-import model.directionImpl.EnumDirection;
-import model.entityImpl.asEnum.EntityImpl;
+import sokoban.GameWinner;
+import sokoban.model.CantBeMovedException;
+import sokoban.model.SokobanGameModel;
+import sokoban.model.directionImpl.EnumDirection;
+import sokoban.model.entityImpl.asEnum.EntityImpl;
 import org.tinylog.Logger;
 
-import javax.imageio.IIOException;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -67,14 +69,14 @@ public class SokobanGameController {
 
         File file = new File(filePath);
         InputStream inputStream = new FileInputStream(file);
-        List<Country> countries = new LinkedList<>();
+        List<GameWinner> countries = new LinkedList<>();
         if(inputStream.available()>0) {
             countries = new ObjectMapper()
                     .registerModule(new JavaTimeModule())
-                    .readValue(inputStream, new TypeReference<List<Country>>() {
+                    .readValue(inputStream, new TypeReference<List<GameWinner>>() {
                     });
         }
-        countries.add(new Country(name));
+        countries.add(new GameWinner(name));
         var objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         try (var writer = new FileWriter(file)) {
             objectMapper.writeValue(writer, countries);
@@ -176,7 +178,7 @@ public class SokobanGameController {
             Logger.info("The game has been given up");
         }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("table.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/table.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

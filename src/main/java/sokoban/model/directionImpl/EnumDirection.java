@@ -1,6 +1,6 @@
-package model.directionImpl;
+package sokoban.model.directionImpl;
 
-import model.Direction;
+import sokoban.model.Direction;
 
 /**
  * Represents the four main directions.

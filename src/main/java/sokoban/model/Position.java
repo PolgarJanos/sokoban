@@ -1,4 +1,4 @@
-package model;
+package sokoban.model;
 
 /**
  * This interface represents an object that is representation of a 2 dimension coordinate.

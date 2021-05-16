@@ -1,6 +1,6 @@
-package model.entityImpl.asEnum;
+package sokoban.model.entityImpl.asEnum;
 
-import model.Entity;
+import sokoban.model.Entity;
 
 /**
  * Enum implementation of the {@code Entity} interface.

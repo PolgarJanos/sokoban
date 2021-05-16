@@ -1,8 +1,10 @@
 package model;
 
-import model.directionImpl.EnumDirection;
-import model.entityImpl.asEnum.EntityImpl;
-import model.positionImpl.IntPosition;
+import sokoban.Configuration;
+import sokoban.model.*;
+import sokoban.model.directionImpl.EnumDirection;
+import sokoban.model.entityImpl.asEnum.EntityImpl;
+import sokoban.model.positionImpl.IntPosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tinylog.Logger;

@@ -1,10 +1,10 @@
-package model.tableImpl;
+package sokoban.model.tableImpl;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import model.Entity;
-import model.Position;
-import model.Table;
-import model.positionImpl.IntPosition;
+import sokoban.model.Entity;
+import sokoban.model.Position;
+import sokoban.model.Table;
+import sokoban.model.positionImpl.IntPosition;
 
 import java.util.HashSet;
 import java.util.Objects;

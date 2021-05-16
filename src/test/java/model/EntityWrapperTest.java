@@ -1,7 +1,10 @@
 package model;
 
-import model.entityImpl.asEnum.EntityImpl;
-import model.positionImpl.IntPosition;
+import sokoban.model.Entity;
+import sokoban.model.EntityWrapper;
+import sokoban.model.Position;
+import sokoban.model.entityImpl.asEnum.EntityImpl;
+import sokoban.model.positionImpl.IntPosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

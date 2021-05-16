@@ -1,10 +1,12 @@
-
+package sokoban;
 
 import javafx.application.Application;
 import org.tinylog.Logger;
 
 import java.io.File;
 import java.io.IOException;
+
+
 //toDo repackaging
 
 public class Main {

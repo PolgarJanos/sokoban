@@ -1,4 +1,4 @@
-package model;
+package sokoban.model;
 
 /**
  * This interface represents an object which can give back what property does it have.

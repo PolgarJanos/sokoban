@@ -1,7 +1,8 @@
-package model.moverImpl;
+package sokoban.model.moverImpl;
 
-import model.*;
-import model.positionImpl.IntPosition;
+
+import sokoban.model.*;
+import sokoban.model.positionImpl.IntPosition;
 
 /**
  * Represent a mover which can move entity on a table.

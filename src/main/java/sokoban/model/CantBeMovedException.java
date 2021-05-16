@@ -1,4 +1,4 @@
-package model;
+package sokoban.model;
 
 /**
  * Signals that an {@code Entity} can 't be moved.

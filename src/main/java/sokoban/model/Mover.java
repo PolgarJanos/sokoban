@@ -1,4 +1,4 @@
-package model;
+package sokoban.model;
 
 /**
  * A class that can move an {@code Entity} on a {@code Table}.

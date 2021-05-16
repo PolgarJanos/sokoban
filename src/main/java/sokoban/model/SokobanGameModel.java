@@ -1,10 +1,10 @@
-package model;
+package sokoban.model;
 
 import javafx.beans.property.*;
-import model.entityImpl.asEnum.EntityImpl;
-import model.moverImpl.MoverImplementation;
-import model.moverImpl.WeakMover;
-import model.tableImpl.TableImpl;
+import sokoban.Configuration;
+import sokoban.model.entityImpl.asEnum.EntityImpl;
+import sokoban.model.moverImpl.WeakMover;
+import sokoban.model.tableImpl.TableImpl;
 import org.tinylog.Logger;
 
 import java.util.List;

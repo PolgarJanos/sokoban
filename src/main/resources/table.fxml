@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane prefHeight="600.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TableViewController">
+<StackPane prefHeight="600.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sokoban.controller.TableViewController">
    <children>
       <TableView fx:id="tableView">
         <columns>

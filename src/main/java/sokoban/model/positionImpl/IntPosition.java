@@ -1,6 +1,6 @@
-package model.positionImpl;
+package sokoban.model.positionImpl;
 
-import model.Position;
+import sokoban.model.Position;
 
 import java.util.Objects;
 

@@ -1,13 +1,14 @@
 package model.tableImpl;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import model.Entity;
-import model.Position;
-import model.Table;
-import model.entityImpl.asEnum.EntityImpl;
-import model.positionImpl.IntPosition;
+import sokoban.model.Entity;
+import sokoban.model.Position;
+import sokoban.model.Table;
+import sokoban.model.entityImpl.asEnum.EntityImpl;
+import sokoban.model.positionImpl.IntPosition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import sokoban.model.tableImpl.TableImpl;
 
 import java.util.HashSet;
 import java.util.Set;

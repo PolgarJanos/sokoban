@@ -1,4 +1,4 @@
-package model;
+package sokoban.model;
 
 import java.util.Objects;
 
